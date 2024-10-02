@@ -1,0 +1,92 @@
+{% extends 'patient-home.html' %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Signup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4; /* Light background */
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 400px; /* Limit width */
+            margin: 50px auto; /* Center align */
+            padding: 20px;
+            background: #fff; /* White background */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+        h1 {
+            text-align: center; /* Center the heading */
+            color: #333; /* Dark text color */
+        }
+        form {
+            display: flex;
+            flex-direction: column; /* Arrange fields vertically */
+        }
+        label {
+            margin-bottom: 5px; /* Space between label and input */
+            color: #555; /* Medium text color */
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            padding: 10px; /* Inner spacing */
+            margin-bottom: 20px; /* Space between fields */
+            border: 1px solid #ccc; /* Light border */
+            border-radius: 4px; /* Rounded corners */
+            font-size: 16px; /* Font size */
+        }
+        button {
+            padding: 10px;
+            background-color: #28a745; /* Green background */
+            color: #fff; /* White text */
+            border: none; /* Remove border */
+            border-radius: 4px; /* Rounded corners */
+            cursor: pointer; /* Pointer cursor */
+            font-size: 16px; /* Font size */
+            transition: background-color 0.3s; /* Smooth transition */
+        }
+        button:hover {
+            background-color: #218838; /* Darker green on hover */
+        }
+        .error {
+            color: red; /* Red color for error messages */
+            margin-bottom: 10px; /* Space below error message */
+        }
+    </style>
+</head>
+<body>
+    <div class="container" style="margin-top:5%">
+        <h1>Admin Signup</h1>
+        <form method="POST">
+            {% csrf_token %}
+
+            <label for="{{ form.username.id_for_label }}">Username</label>
+            {{ form.username }}
+            <div class="error">{{ form.username.errors }}</div>
+
+            <label for="{{ form.password.id_for_label }}">Password</label>
+            {{ form.password }}  <!-- Standard CharField for password -->
+            <div class="error">{{ form.password.errors }}</div>
+
+            <label for="{{ form.first_name.id_for_label }}">First Name</label>
+            {{ form.first_name }}
+            <div class="error">{{ form.first_name.errors }}</div>
+
+            <label for="{{ form.last_name.id_for_label }}">Last Name</label>
+            {{ form.last_name }}
+            <div class="error">{{ form.last_name.errors }}</div>
+
+             <div style="display: flex; justify-content: space-between;">
+        <button type="submit" style="width: 48%;">Sign Up</button>
+        <button type="button" onclick="location.href='{% url 'admin-loginview' %}'" style="background-color: blue; width: 48%;">Login</button>
+    </div>
+
+        </form>
+    </div>
+</body>
+{% endblock %}

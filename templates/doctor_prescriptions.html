@@ -1,0 +1,75 @@
+{% extends 'doctors_dashboad.html' %}
+
+{% block content %}
+<div class="container">
+    <h3 class="my-4">Appointments for Dr. {{ doctor.name }}</h3>
+
+    <div class="row">
+        {% for appointment in appointments %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ appointment.patient.name }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ appointment.appointment_date }}</h6>
+
+                    <!-- Form to add prescription for each appointment -->
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="appointment_id" value="{{ appointment.id }}">
+
+                        <div class="form-group">
+                            <label for="medication">Medication:</label>
+                            <select class="form-control" name="medication" required>
+                                <option value="" disabled selected>Select medication</option>
+                                {% for medicine in medicines %}
+                                <option value="{{ medicine.name }}">{{ medicine.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dosage">Dosage:</label>
+                            <input type="text" class="form-control" name="dosage" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="instructions">Instructions:</label>
+                            <input type="text" class="form-control" name="instructions" required>
+                        </div>
+
+                        <!-- New field to capture the prescription amount -->
+                        <div class="form-group">
+                            <label for="amount">Amount:</label>
+                            <input type="number" class="form-control" name="amount" step="0.01" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Prescribe</button>
+                    </form>
+
+                    <!-- Button to toggle prescriptions for this appointment -->
+                    <button class="btn btn-info mt-2" type="button" data-bs-toggle="collapse" data-bs-target="#prescriptions_{{ appointment.id }}">
+                        View Prescriptions
+                    </button>
+
+                    <!-- Prescriptions list specific to the appointment -->
+                    <div class="collapse mt-2" id="prescriptions_{{ appointment.id }}">
+                        <ul class="list-group">
+                            {% for prescription in appointment.prescription_set.all %}
+                            <li class="list-group-item">
+                                <strong>Date Issued:</strong> {{ prescription.date_issued }}<br>
+                                <strong>Medication:</strong> {{ prescription.medication }}<br>
+                                <strong>Dosage:</strong> {{ prescription.dosage }}<br>
+                                <strong>Instructions:</strong> {{ prescription.instructions }}<br>
+                                <strong>Amount:</strong> ${{ prescription.amount }}<br> <!-- Display amount -->
+                            </li>
+                            {% empty %}
+                            <li class="list-group-item text-muted">No prescriptions found for this appointment.</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

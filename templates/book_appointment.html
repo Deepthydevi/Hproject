@@ -1,0 +1,94 @@
+{% extends 'patient-home.html' %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h2, h3 {
+            color: #333;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        select, input, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .message {
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #e7f3fe;
+            color: #31708f;
+            border: 1px solid #bce8f1;
+            border-radius: 5px;
+        }
+        #selected_doctor {
+            font-weight: bold;
+            margin-top: 10px;
+            color: #4CAF50; /* Optional: Different color for selected doctor */
+        }
+    </style>
+</head>
+<body>
+    <h2 style="text-align:center;margin-top:2%;">Book Appointment</h2>
+
+    <!-- Displaying the Patient Name -->
+    <h3>Patient: {{ patient_name }}</h3>
+
+    <!-- Display any success or error messages if applicable -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Appointment Form -->
+    <form method="POST" action="{% url 'book_appointment' patient_id=patient.id %}">
+        {% csrf_token %}
+
+        <!-- Select Doctor Field -->
+        <label for="doctor" style="color:black;">Select Doctor:</label>
+        {{ form.doctor }}  <!-- Render the doctor field from the form directly -->
+        {% if form.doctor.errors %}
+            <div class="message" style="color: red;">{{ form.doctor.errors }}</div>
+        {% endif %}
+
+       <!-- Appointment Date Field -->
+<label for="appointment_date" style="color:black;" >Appointment Date:</label>
+<input type="date" name="appointment_date" id="appointment_date" value="{{ form.appointment_date.value|default:'' }}">
+{% if form.appointment_date.errors %}
+    <div class="message" style="color: red;">{{ form.appointment_date.errors }}</div>
+{% endif %}
+
+        <!-- Symptoms Field -->
+        <label for="symptoms" style="color:black;">Symptoms:</label>
+        {{ form.symptoms }}  <!-- Render the symptoms field from the form directly -->
+      
+
+
+
+
+        <button type="submit">Book Appointment</button>
+    </form>
+</body>
+{% endblock %}

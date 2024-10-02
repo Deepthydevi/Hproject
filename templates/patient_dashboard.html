@@ -1,0 +1,86 @@
+{% extends 'patient-home.html' %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        h2 {
+            color: #343a40;
+            margin-bottom: 20px;
+        }
+        .dashboard-sidebar {
+            background-color: #343a40;
+            padding: 15px;
+            height: 100vh;
+        }
+        .dashboard-sidebar a {
+            color: #ffffff;
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            margin-bottom: 10px;
+        }
+        .dashboard-sidebar a:hover {
+            background-color: #495057;
+        }
+        .dashboard-content {
+            padding: 30px;
+        }
+        .card {
+            margin-top: 20px;
+        }
+        .navbar-custom {
+            background-color: #343a40;
+            color: #ffffff;
+        }
+        .navbar-custom a {
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <a class="navbar-brand" href="#">Patient Dashboard</a>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Logout</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 dashboard-sidebar">
+                <a href="{% url 'submit-details' %}">Dashboard</a>
+                <a href="{% url 'book_appointment' patient_id=patient.id %}">Book Appointments</a>
+                <a href="#">Appointments</a>
+                <a href="#">Prescriptions</a>
+                <a href="#">Medical History</a>
+                <a href="#">Settings</a>
+            </div>
+
+            <!-- Main content area -->
+            <div class="col-md-10 dashboard-content">
+                {% block dashboard_content %}
+                <!-- You can add additional content specific to the dashboard here -->
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+{% endblock %}

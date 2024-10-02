@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Custom styling for dashboard */
+        .sidebar {
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            background-color: #343a40;
+            padding-top: 30px;
+        }
+
+        .sidebar a {
+            padding: 15px;
+            text-align: left;
+            display: block;
+            font-size: 16px;
+            color: #ddd;
+            text-decoration: none;
+        }
+
+        .sidebar a:hover {
+            background-color: #575d63;
+            color: white;
+        }
+
+        .content {
+            margin-left: 260px;
+            padding: 20px;
+        }
+
+        .card {
+            margin-top: 20px;
+        }
+
+        .card-header {
+            background-color: #343a40;
+            color: white;
+        }
+
+        .logout {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            padding: 15px;
+            background-color: #dc3545;
+            text-align: center;
+        }
+
+        .logout a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .logout a:hover {
+            color: #f8d7da;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <h3 class="text-center text-white">Admin Panel</h3>
+    <hr class="bg-light">
+    <a href="#">Dashboard</a>
+    <a href="{% url 'add-doctor' %}">Manage Users</a>
+    <a href="#">Appointments</a>
+    <a href="#">Settings</a>
+    <div class="logout">
+        <a href="">Logout</a>
+    </div>
+</div>
+
+<!-- Content Area -->
+<div class="content">
+    <div class="container-fluid">
+        <h2 class="mt-3">Welcome, {{ request.user.first_name }}!</h2>
+     {% block content %}
+    {% endblock %}
+        <!-- Add Doctor Form -->
+
+
+<!-- Bootstrap JS and Popper.js (optional) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

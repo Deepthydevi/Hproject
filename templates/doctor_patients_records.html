@@ -1,0 +1,38 @@
+{% extends 'doctors_dashboad.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h4 class="text-center">Patients of Dr. {{ doctor.name }}</h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover">
+                    <thead class="bg-secondary text-white">
+                        <tr>
+                            <th>Patient Name</th>
+                            <th>Symptoms</th>
+                            <th>Date of birth</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for patient in patients %}
+                        <tr>
+                            <td>{{ patient.patient__name }}</td>  <!-- Patient Name -->
+                            <td>{{ patient.symptoms }}</td> <!-- Patient Symptoms -->
+                            <td>{{ patient.date_of_birth }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3" class="text-center text-muted">No patients found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

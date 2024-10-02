@@ -1,0 +1,156 @@
+{% extends 'patient-home.html' %} <!-- Change to your base template -->
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Registration</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+            padding: 20px; /* Add padding to the body */
+        }
+        h2 {
+            color: #343a40;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #28a745;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #218838;
+        }
+        .text-danger {
+            font-size: 0.9em;
+        }
+        .footer-text {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .footer-text a {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2 style="margin-top:50px;">Patient Registration</h2>
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="form-group row">
+            <label for="username" class="col-sm-3 col-form-label">Username</label>
+            <div class="col-sm-9">
+                <input type="text" name="username" class="form-control" placeholder="Enter your username" required>
+                {% if user_form.username.errors %}
+                    <div class="text-danger">{{ user_form.username.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="password" class="col-sm-3 col-form-label">Password</label>
+            <div class="col-sm-9">
+                <input type="password" name="password" class="form-control" placeholder="Enter your password" required>
+                {% if user_form.password.errors %}
+                    <div class="text-danger">{{ user_form.password.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="cpassword" class="col-sm-3 col-form-label">Confirm Password</label>
+            <div class="col-sm-9">
+                <input type="password" name="cpassword" class="form-control" placeholder="Confirm your password" required>
+                {% if user_form.cpassword.errors %}
+                    <div class="text-danger">{{ user_form.cpassword.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Patient Details -->
+        <div class="form-group row">
+            <label for="name" class="col-sm-3 col-form-label">Full Name</label>
+            <div class="col-sm-9">
+                <input type="text" name="name" class="form-control" placeholder="Enter your full name" required>
+                {% if user_form.name.errors %}
+                    <div class="text-danger">{{ user_form.name.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="date_of_birth" class="col-sm-3 col-form-label">Date of Birth</label>
+            <div class="col-sm-9">
+                <input type="date" name="date_of_birth" class="form-control" required>
+                {% if user_form.date_of_birth.errors %}
+                    <div class="text-danger">{{ user_form.date_of_birth.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="gender" class="col-sm-3 col-form-label">Gender</label>
+            <div class="col-sm-9">
+                <select name="gender" class="form-control" required>
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+                {% if user_form.gender.errors %}
+                    <div class="text-danger">{{ user_form.gender.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="mobile" class="col-sm-3 col-form-label">Mobile Number</label>
+            <div class="col-sm-9">
+                <input type="text" name="mobile" class="form-control" placeholder="Enter your mobile number" required>
+                {% if user_form.mobile.errors %}
+                    <div class="text-danger">{{ user_form.mobile.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="email" class="col-sm-3 col-form-label">Email Address</label>
+            <div class="col-sm-9">
+                <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
+                {% if user_form.email.errors %}
+                    <div class="text-danger">{{ user_form.email.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="address" class="col-sm-3 col-form-label">Address</label>
+            <div class="col-sm-9">
+                <textarea name="address" class="form-control" placeholder="Enter your address" rows="3" required></textarea>
+                {% if user_form.address.errors %}
+                    <div class="text-danger">{{ user_form.address.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Medical History Section -->
+
+
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+    <p>Already have an account? <a href="{% url 'patient-login' %}">Login here</a></p>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+{% endblock %}

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointments List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .appointment-table {
+            width: 100%;
+            border-collapse: separate; /* Prevents border collapse for column separation */
+            border-spacing: 0; /* No gap between cells, adjust if needed */
+            margin-bottom: 20px;
+            background-color: #fff; /* White background for clear visibility */
+        }
+        .appointment-table th, .appointment-table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd; /* Adds separation lines between columns */
+        }
+        .appointment-table th {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+        }
+        .appointment-table tr {
+            border-bottom: 1px solid #ddd;
+        }
+        .appointment-table tr:hover {
+            background-color: #f1f1f1;
+        }
+        .appointment-table td {
+            vertical-align: middle;
+        }
+        .edit-button {
+            display: inline-block;
+            padding: 5px 10px;
+            color: white;
+            background-color: #4CAF50;
+            text-decoration: none;
+            border-radius: 3px;
+            text-align: center;
+        }
+        .edit-button:hover {
+            background-color: #45a049;
+        }
+        .no-appointments {
+            text-align: center;
+            font-size: 18px;
+            margin: 20px 0;
+            color: #666;
+        }
+        .book-appointment {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            text-align: center;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .book-appointment:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Your Appointments List</h1>
+
+    {% if appointments %}
+    <table class="appointment-table">
+        <thead>
+            <tr>
+                <th>Doctor</th>
+                <th>Date</th>
+                <th>Symptoms</th>
+                <th>Status</th>
+                <th>Action</th> <!-- Added Action column for Edit button -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for appointment in appointments %}
+            <tr>
+                <td>{{ appointment.doctor.name }}</td>
+                <td>{{ appointment.appointment_date|date:"Y-m-d" }}</td>
+                <td>{{ appointment.symptoms }}</td>
+                <td>{{ appointment.status }} </td>
+                <td>
+                    <a href="" class="edit-button">Edit</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <div class="no-appointments">
+            <p>No appointments found for this patient.</p>
+        </div>
+    {% endif %}
+
+    <a href="{% url 'book_appointment' patient_id=patient.id %}" class="book-appointment">Book New Appointment</a>
+</body>
+</html>

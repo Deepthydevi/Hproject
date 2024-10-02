@@ -1,0 +1,10 @@
+{% extends 'patient-home.html' %} <!-- Change to your base template -->
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Payment Successful!</h2>
+    <p>Thank you for your payment. Your transaction has been completed successfully.</p>
+    <p>Your session ID is: <strong>{{ session_id }}</strong></p>
+    <a href="{% url 'patient_home' %}" class="btn btn-primary">Go to Dashboard</a>
+</div>
+{% endblock %}

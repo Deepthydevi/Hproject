@@ -1,0 +1,193 @@
+{% extends 'patient-home.html' %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Signup</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f0f8ff; /* Light blue background */
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            max-width: 600px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #007bff;
+            margin-bottom: 20px;
+            text-align: center;
+            margin-left:-75px;
+        }
+        .form-heading {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .alert-danger {
+            color: white;
+            background-color: #dc3545;
+        }
+        p a {
+            color: #007bff;
+        }
+        p a:hover {
+            text-decoration: underline;
+        }
+        @media (min-width: 576px) {
+            .container {
+                max-width: 540px;
+            }
+        }
+        @media (min-width: 768px) {
+            .container {
+                max-width: 720px;
+            }
+        }
+        @media (min-width: 992px) {
+            .container {
+                max-width: 960px;
+            }
+        }
+        .form-control{
+                width: 33%;
+        }
+        #id_status{
+          width: 33%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Doctor Signup</h2>
+        {% if messages %}
+            <div class="alert alert-danger">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+
+            <!-- User Information -->
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="username">Username</label>
+                </div>
+                <div class="col-md-8">
+                    {{ user_form.username }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="password">Password</label>
+                </div>
+                <div class="col-md-8">
+                    {{ user_form.password }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="email">Email</label>
+                </div>
+                <div class="col-md-8">
+                    {{ doctor_form.email }}
+                </div>
+            </div>
+
+
+            <!-- Doctor Information -->
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="name">Name</label>
+                </div>
+                <div class="col-md-8">
+                    {{ doctor_form.name }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="departments">Department</label>
+                </div>
+                <div class="col-md-8">
+                    {{ doctor_form.departments }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="address">Address</label>
+                </div>
+                <div class="col-md-8">
+                    {{ doctor_form.address }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="mobile">Mobile</label>
+                </div>
+                <div class="col-md-8">
+                    {{ doctor_form.mobile }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="specialization">Specialization</label>
+                </div>
+                <div class="col-md-8">
+                    {{ doctor_form.specialization }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="experience">Years of Experience</label>
+                </div>
+                <div class="col-md-8">
+                    {{ doctor_form.experience }}
+                </div>
+            </div>
+
+            <!-- Status (default active) -->
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="status">Status</label>
+                </div>
+                <div class="col-md-8">
+                    {{ doctor_form.status }}
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block mt-4">Sign Up</button>
+        </form>
+        <p class="mt-3 text-center">Already have an account? <a href="{% url 'doctor-login' %}">Login here</a>.</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+{% endblock %}

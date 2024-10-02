@@ -1,0 +1,88 @@
+{% extends 'patient-home.html' %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f0f4f8;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        h2 {
+            color: #343a40;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .btn-book {
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Welcome Message -->
+        <h2 style="margin-top:45px;">Welcome, {{ patient.name }}</h2>
+
+        <form>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="full_name" class="form-label">Full Name</label>
+                    <input type="text" name="name" class="form-control" value="{{ patient.name }}" readonly>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="date_of_birth" class="form-label">Date of Birth</label>
+                    <input type="date" name="date_of_birth" class="form-control" value="{{ patient.date_of_birth }}" readonly>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="gender" class="form-label">Gender</label>
+                    <select name="gender" class="form-control" disabled>
+                        <option value="Male" {% if patient.gender == 'Male' %}selected{% endif %}>Male</option>
+                        <option value="Female" {% if patient.gender == 'Female' %}selected{% endif %}>Female</option>
+                        <option value="Other" {% if patient.gender == 'Other' %}selected{% endif %}>Other</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="phone_number" class="form-label">Phone Number</label>
+                    <input type="text" name="phone_number" class="form-control" value="{{ patient.mobile }}" readonly>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" value="{{ patient.email }}" readonly>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="address" class="form-label">Address</label>
+                    <textarea name="address" class="form-control" rows="2" readonly>{{ patient.address }}</textarea>
+                </div>
+            </div>
+
+
+            <!-- Book Appointment Button -->
+            <div class="text-center">
+                <a href="{% url 'book_appointment' patient_id=patient.id %}" class="btn btn-book btn-lg">Book Appointment</a>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+{% endblock %}

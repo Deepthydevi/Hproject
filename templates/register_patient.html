@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form method="post">
+  {% csrf_token %}
+
+  <!-- User form fields -->
+  {{ user_form.as_p }}
+
+  <!-- Patient form fields -->
+  {{ patient_form.as_p }}
+
+  <button type="submit" class="btn btn-primary">Register</button>
+</form>
+
+</body>
+</html>

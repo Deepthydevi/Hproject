@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Submit Your Details</title>
+</head>
+<body>
+    <h1>Submit Your Details</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ patient_form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div>{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+</body>
+</html>

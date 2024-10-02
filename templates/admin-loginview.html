@@ -1,0 +1,75 @@
+{% extends 'patient-home.html' %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4; /* Light background */
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 400px; /* Limit width */
+            margin: 50px auto; /* Center align */
+            padding: 20px;
+            background: #fff; /* White background */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+        h1 {
+            text-align: center; /* Center the heading */
+            color: #333; /* Dark text color */
+        }
+        label {
+            margin-bottom: 5px; /* Space between label and input */
+            color: #555; /* Medium text color */
+        }
+        input[type="text"],
+        input[type="password"] {
+            padding: 10px; /* Inner spacing */
+            margin-bottom: 20px; /* Space between fields */
+            border: 1px solid #ccc; /* Light border */
+            border-radius: 4px; /* Rounded corners */
+            font-size: 16px; /* Font size */
+            width: 95%; /* Full width */
+        }
+        button {
+            padding: 10px;
+            background-color: #28a745; /* Green background */
+            color: #fff; /* White text */
+            border: none; /* Remove border */
+            border-radius: 4px; /* Rounded corners */
+            cursor: pointer; /* Pointer cursor */
+            font-size: 16px; /* Font size */
+            transition: background-color 0.3s; /* Smooth transition */
+            width: 100%; /* Full width */
+        }
+        button:hover {
+            background-color: #218838; /* Darker green on hover */
+        }
+        .error {
+            color: red; /* Red color for error messages */
+            margin-bottom: 10px; /* Space below error message */
+        }
+    </style>
+</head>
+<body>
+    <div class="container" style="margin-top:10%">
+        <h1>Admin Login</h1>
+
+        <form method="POST">
+            {% csrf_token %}  <!-- Include CSRF token for security -->
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Log In</button>  <!-- Submit button -->
+        </form>
+    </div>
+</body>
+{% endblock %}

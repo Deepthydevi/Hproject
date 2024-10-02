@@ -1,0 +1,33 @@
+{% extends 'patient-home.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Your Appointment List</h2>
+    
+    {% if appointments %}
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Doctor</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for appointment in appointments %}
+            <tr>
+                <td>{{ appointment.date }}</td>
+                <td>{{ appointment.time }}</td>
+                <td>{{ appointment.doctor.name }}</td>
+                <td>{{ appointment.status }}</td> <!-- Adjust based on your Appointment model -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>No appointments found.</p>
+    {% endif %}
+    
+    <a href="" class="btn btn-secondary">Back to Home</a>
+</div>
+{% endblock %}

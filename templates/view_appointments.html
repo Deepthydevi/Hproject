@@ -1,0 +1,79 @@
+{% extends 'patient-home.html' %} <!-- Assuming you have a base template -->
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Appointments and Prescriptions for {{ patient.name }}</h2>
+
+    {% if appointments %}
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Doctor</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Prescription</th>
+                    <th>Amount</th> <!-- Added Amount Column -->
+                    <th>Payment</th> <!-- Added Payment Column -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for appointment in appointments %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ appointment.doctor.name }}</td>
+                    <td>{{ appointment.appointment_date }}</td>
+                    <td>{{ appointment.status }}</td>
+                    <td>
+                        {% if appointment.prescription_set.all %}
+                            <ul>
+                                {% for prescription in appointment.prescription_set.all %}
+                                    <li>
+                                        <strong>Medication:</strong> {{ prescription.medication }} <br>
+                                        <strong>Dosage:</strong> {{ prescription.dosage }} <br>
+                                        <strong>Instructions:</strong> {{ prescription.instructions }} <br>
+                                        <small><strong>Date Issued:</strong> {{ prescription.date_issued }}</small>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            No prescriptions available.
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if appointment.prescription_set.all %}
+                            <ul>
+                                {% for prescription in appointment.prescription_set.all %}
+                                    <li>${{ prescription.amount }}</li> <!-- Display the amount for each prescription -->
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                    <td>
+                        <!-- Payment button will only appear if there is at least one prescription and the amount is greater than zero -->
+                        {% if appointment.prescription_set.all %}
+                            <form method="POST" action="{% url 'create_checkout_session' appointment.id %}">
+                                {% csrf_token %}>
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-success">
+                                    Proceed to Payment
+                                </button>
+                            </form>
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No appointments found for this patient.</p>
+    {% endif %}
+    
+    <!-- Link to go back or add new appointments -->
+    <a href="{% url 'book_appointment' patient_id=patient.id %}" class="btn btn-primary">Book New Appointment</a>
+</div>
+{% endblock %}

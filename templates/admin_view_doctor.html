@@ -1,0 +1,74 @@
+{% extends 'index-2.html' %}
+{% block content %}
+
+<head>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+  <style>
+    a:link {
+      text-decoration: none;
+    }
+
+    h6 {
+      text-align: center;
+    }
+
+    .row {
+      margin: 100px;
+    }
+
+    /* Column Separation */
+    th, td {
+      border-right: 1px solid #ddd; /* Vertical lines between columns */
+    }
+
+    th:last-child, td:last-child {
+      border-right: none; /* No border on the last column */
+    }
+
+    thead th {
+      background-color: #f5f5f5; /* Light background for table headers */
+    }
+
+    /* Hover effect for rows */
+    tbody tr:hover {
+      background-color: #f9f9f9;
+    }
+  </style>
+</head>
+
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h6 class="panel-title">Doctors</h6>
+    </div>
+    <table class="table table-hover" id="dev-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Contact</th>
+          <th>Address</th>
+          <th>Department</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for d in doctors %}
+        <tr>
+          <td>{{ d.user }}</td>
+          <td>{{ d.mobile }}</td>
+          <td>{{ d.address }}</td>
+          <td>{{ d.department }}</td>
+          <td><a class="btn btn-primary btn-xs" href="{% url 'update-doctor' d.id  %}"><span class="glyphicon glyphicon-edit"></span></a></td>
+          <td><a class="btn btn-danger btn-xs" href="{% url 'delete-doctor' d.id %}"><span class="glyphicon glyphicon-trash"></span></a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}
